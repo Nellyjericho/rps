@@ -1,6 +1,6 @@
-- [x] Update app/(tabs)/index.tsx with pixelated chibi-style UI
-- [x] Add animations using react-native-reanimated for chibi effects
-- [x] Implement haptic feedback on interactions
-- [x] Style components for pixelated look
-- [x] Test the updated game
-- [x] Fix result text visibility issues
+# TODO: Set background.png as background image
+
+- [x] Import ImageBackground from 'react-native' in app/(tabs)/index.tsx
+- [x] Replace ThemedView container with ImageBackground, set source to background.png
+- [x] Update styles.container to remove backgroundColor and ensure full screen coverage
+- [x] Test the background image display

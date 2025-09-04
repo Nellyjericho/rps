@@ -1,14 +1,14 @@
+import * as Haptics from "expo-haptics";
 import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native"; // Added ImageBackground for background image
+import ConfettiCannon from "react-native-confetti-cannon";
 import Animated, {
-  useSharedValue,
   useAnimatedStyle,
-  withSpring,
+  useSharedValue,
   withSequence,
+  withSpring,
   withTiming,
 } from "react-native-reanimated";
-import * as Haptics from "expo-haptics";
-import ConfettiCannon from "react-native-confetti-cannon";
 import { ThemedText } from "../../components/ThemedText";
 import { ThemedView } from "../../components/ThemedView";
 
@@ -108,7 +108,8 @@ export default function Index() {
   });
 
   return (
-    <ThemedView style={styles.container}>
+    // Using ImageBackground to set background.png as the app's background image
+    <ImageBackground source={require("../../assets/images/background.png")} style={styles.container}>
       <ThemedText style={styles.title} type="title">
         Rock Paper Scissors
       </ThemedText>
@@ -123,7 +124,9 @@ export default function Index() {
             <Animated.Image
               source={choiceImages[choice]}
               style={[
-                styles.choiceImage,
+                choice === "rock" ? styles.rockImage :
+                choice === "paper" ? styles.paperImage :
+                choice === "scissors" ? styles.scissorsImage : styles.choiceImage,
                 choice === "rock"
                   ? rockAnimatedStyle
                   : choice === "paper"
@@ -151,7 +154,7 @@ export default function Index() {
       {showConfetti && (
         <ConfettiCannon count={50} origin={{ x: 200, y: -10 }} fadeOut={true} />
       )}
-    </ThemedView>
+    </ImageBackground>
   );
 }
 
@@ -177,7 +180,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#4B0082",
   },
   title: {
     fontSize: 28,
@@ -187,6 +189,11 @@ const styles = StyleSheet.create({
     textShadowColor: "#800080",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 1,
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
   },
   choicesContainer: {
     flexDirection: "row",
@@ -194,6 +201,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     paddingHorizontal: 20,
+    backgroundColor: 'rgba(24, 7, 7, 0.3)',
+    marginLeft: 50,
   },
   choiceImage: {
     width: 100,
@@ -201,6 +210,31 @@ const styles = StyleSheet.create({
     margin: 15,
     borderWidth: 3,
     borderColor: "#FF69B4",
+    borderRadius: 10,
+  },
+  rockImage: {
+    width: 100,
+    height: 100,
+    margin: 15,
+    marginLeft: 30,
+    borderWidth: 3,
+    borderColor: "green",
+    borderRadius: 10,
+  },
+  paperImage: {
+    width: 100,
+    height: 100,
+    margin: 15,
+    borderWidth: 3,
+    borderColor: "blue",
+    borderRadius: 10,
+  },
+  scissorsImage: {
+    width: 100,
+    height: 100,
+    margin: 15,
+    borderWidth: 3,
+    borderColor: "orange",
     borderRadius: 10,
   },
   choiceLabel: {
@@ -218,6 +252,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 2,
     borderColor: "#FF69B4",
+    marginLeft: 50,
   },
   resultText: {
     fontSize: 28,
